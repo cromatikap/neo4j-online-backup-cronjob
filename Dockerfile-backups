@@ -1,0 +1,16 @@
+FROM neo4j:5.8.0-enterprise
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y cron zsh
+
+RUN mkdir /var/lib/neo4j/backups
+
+COPY cronjob /etc/cron.d/cronjob
+COPY backup_script.sh /backup_script.sh
+
+RUN chmod 0144 /backup_script.sh
+RUN chmod 0644 /etc/cron.d/cronjob
+RUN crontab /etc/cron.d/cronjob
+
+ENTRYPOINT ["cron", "&&", "tail", "-f", "/dev/null"]
