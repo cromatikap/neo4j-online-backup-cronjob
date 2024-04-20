@@ -1,6 +1,7 @@
 MAX_BACKUPS=5
-HOST="db:6362"
 REMOTE_STORAGE="user@remote:/path/to/remote/storage"
+
+HOST="db:6362"
 BACKUP_DIR="/var/lib/neo4j/backups"
 CRON_LOG="/var/lib/neo4j/cron.log"
 
