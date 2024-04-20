@@ -1,5 +1,6 @@
 MAX_BACKUPS=5
 HOST="db:6362"
+REMOTE_STORAGE="user@remote:/path/to/remote/storage"
 BACKUP_DIR="/var/lib/neo4j/backups"
 CRON_LOG="/var/lib/neo4j/cron.log"
 
@@ -8,3 +9,6 @@ CRON_LOG="/var/lib/neo4j/cron.log"
 # Backup rotation: Keep only the $MAX_BACKUPS most recent backups
 cd $BACKUP_DIR
 ls -tp | grep -v '/$' | tail -n +$((MAX_BACKUPS + 1)) | xargs -d '\n' -r rm --
+
+# Sync the backups to the remote storage
+rsync -avz --delete $BACKUP_DIR/ $REMOTE_STORAGE >> $CRON_LOG 2>&1
