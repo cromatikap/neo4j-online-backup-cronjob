@@ -1,4 +1,4 @@
-# Automated neo4j database backup solution
+# neo4j database scheduled backup solution
 
 ## Getting started
 
